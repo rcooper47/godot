@@ -116,6 +116,7 @@
 #include "tests/scene/test_packed_scene.h"
 #include "tests/scene/test_path_2d.h"
 #include "tests/scene/test_sprite_frames.h"
+#include "tests/scene/test_style_box_line.h"
 #include "tests/scene/test_text_edit.h"
 #include "tests/scene/test_theme.h"
 #include "tests/scene/test_timer.h"
