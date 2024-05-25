@@ -31,7 +31,6 @@
 #include "joint_2d.h"
 
 #include "scene/2d/physics/physics_body_2d.h"
-#include "scene/scene_string_names.h"
 
 void Joint2D::_disconnect_signals() {
 	Node *node_a = get_node_or_null(a);
@@ -117,8 +116,12 @@ void Joint2D::_update_joint(bool p_only_free) {
 	ba = body_a->get_rid();
 	bb = body_b->get_rid();
 
-	body_a->connect(SceneStringName(tree_exiting), callable_mp(this, &Joint2D::_body_exit_tree));
-	body_b->connect(SceneStringName(tree_exiting), callable_mp(this, &Joint2D::_body_exit_tree));
+	if (!body_a->is_connected(SceneStringName(tree_exiting), callable_mp(this, &Joint2D::_body_exit_tree))) {
+		body_a->connect(SceneStringName(tree_exiting), callable_mp(this, &Joint2D::_body_exit_tree));
+	}
+	if (!body_b->is_connected(SceneStringName(tree_exiting), callable_mp(this, &Joint2D::_body_exit_tree))) {
+		body_b->connect(SceneStringName(tree_exiting), callable_mp(this, &Joint2D::_body_exit_tree));
+	}
 
 	PhysicsServer2D::get_singleton()->joint_disable_collisions_between_bodies(joint, exclude_from_collision);
 }

@@ -31,7 +31,6 @@
 #include "class_db.h"
 
 #include "core/config/engine.h"
-#include "core/core_string_names.h"
 #include "core/io/resource_loader.h"
 #include "core/object/script_language.h"
 #include "core/os/mutex.h"
@@ -523,7 +522,7 @@ Object *ClassDB::_instantiate_internal(const StringName &p_class, bool p_require
 #ifdef TOOLS_ENABLED
 		if (!p_require_real_class && ti->is_runtime && Engine::get_singleton()->is_editor_hint()) {
 			if (!ti->inherits_ptr || !ti->inherits_ptr->creation_func) {
-				ERR_PRINT_ONCE(vformat("Cannot make a placeholder instance of runtime class %s because its parent cannot be constructed.", ti->name));
+				ERR_PRINT(vformat("Cannot make a placeholder instance of runtime class %s because its parent cannot be constructed.", ti->name));
 			} else {
 				ObjectGDExtension *extension = get_placeholder_extension(ti->name);
 				return (Object *)extension->create_instance(extension->class_userdata);
